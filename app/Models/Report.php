@@ -10,7 +10,7 @@ class Report extends Model
     use HasFactory;
 
     protected $fillable = [
-        'child_name', 'class', 'status', 'report_date', 'category', 'description', 'teacher_notes', 'user_id',
+        'child_name', 'class', 'status', 'report_date', 'category', 'description', 'teacher_notes',
     ];
 
     // Relasi dengan User (guru)

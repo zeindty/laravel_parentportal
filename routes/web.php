@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\ChildController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\MeetingController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,9 +34,16 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::resource('users', UserController::class);
+    
 
     Route::resource('reports', ReportController::class);
     Route::resource('events', EventController::class);
+    Route::resource('childs', ChildController::class);
+    Route::resource('meetings', MeetingController::class);
+
+    Route::get('/export/pdf', [MeetingController::class, 'cetakPdf'])->name('cetak.pdf');
+    Route::get('/export', [MeetingController::class, 'cetak'])->name('cetak');
+    
 
 
 });

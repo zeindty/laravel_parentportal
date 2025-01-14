@@ -1,9 +1,10 @@
 <x-app-layout>
-    <form method="POST" action="{{ route('users.store') }}">
+    <form method="POST" action="{{ route('users.update', $user->id) }}">
+        @method('PUT')
         @csrf
         <x-slot name="header">
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                {{ __('Add User') }}
+                {{ __('Edit User') }}
             </h2>
         </x-slot>
         <div class="py-12">
@@ -14,7 +15,7 @@
                         <div>
                             <x-input-label for="name" :value="__('Name')" />
                             <x-text-input id="name" class="block mt-1 w-full" type="text" name="name"
-                                :value="old('name')" required autofocus autocomplete="name" />
+                                :value="old('name', $user->name)" required autofocus autocomplete="name" />
                             <x-input-error :messages="$errors->get('name')" class="mt-2" />
                         </div>
 
@@ -22,17 +23,17 @@
                         <div class="mt-4">
                             <x-input-label for="email" :value="__('Email')" />
                             <x-text-input id="email" class="block mt-1 w-full" type="email" name="email"
-                                :value="old('email')" required autocomplete="username" />
+                                :value="old('email', $user->email)" required autocomplete="username" />
                             <x-input-error :messages="$errors->get('email')" class="mt-2" />
                         </div>
 
                         <div class="mt-4">
                             <x-input-label for="role" :value="__('Role')" />
                             <select id="role" class="block mt-1 w-full" name="role" required>
-                                <option value="super_admin" {{ old('role') == 'super_admin' ? 'selected' : '' }}>Super Admin</option>
-                                <option value="kepala_sekolah" {{ old('role') == 'kepala_sekolah' ? 'selected' : '' }}>Kepala Sekolah</option>
-                                <option value="guru" {{ old('role') == 'guru' ? 'selected' : '' }}>Guru</option>
-                                <option value="orang_tua" {{ old('role') == 'orang_tua' ? 'selected' : '' }}>Orang Tua</option>
+                                <option value="super_admin" {{ old('role', $user->role) == 'super_admin' ? 'selected' : '' }}>Super Admin</option>
+                                <option value="kepala_sekolah" {{ old('role', $user->role) == 'kepala_sekolah' ? 'selected' : '' }}>Kepala Sekolah</option>
+                                <option value="guru" {{ old('role', $user->role) == 'guru' ? 'selected' : '' }}>Guru</option>
+                                <option value="orang_tua" {{ old('role', $user->role) == 'orang_tua' ? 'selected' : '' }}>Orang Tua</option>
                             </select>
                             <x-input-error :messages="$errors->get('role')" class="mt-2" />
                         </div>

@@ -20,7 +20,7 @@ return new class extends Migration
         $table->string('category');
         $table->text('description');
         $table->text('teacher_notes');
-        $table->foreignId('user_id')->constrained()->onDelete('cascade');
+        // $table->foreignId('user_id')->constrained()->onDelete('cascade');
         $table->timestamps();
     });
 }

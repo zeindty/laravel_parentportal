@@ -33,6 +33,7 @@ class ReportController extends Controller
             'category' => 'required|string|max:255',
             'description' => 'required|string',
             'teacher_notes' => 'nullable|string',
+            
         ]);
 
         Report::create($validated);

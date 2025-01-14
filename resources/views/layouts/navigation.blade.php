@@ -22,6 +22,11 @@
                         {{ __('User Index') }}
                     </x-nav-link>
                 </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('childs.index')" :active="request()->routeIs('childs.index')">
+                        {{ __('Child Data') }}
+                    </x-nav-link>
+                </div>
                 <!-- Menambahkan Report Management di Primary Navigation Menu -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('reports.index')" :active="request()->routeIs('reports.index')">
@@ -32,6 +37,11 @@
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('events.index')" :active="request()->routeIs('events.index')">
                         {{ __('Event Management') }}
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('meetings.index')" :active="request()->routeIs('meetings.index')">
+                        {{ __('Meeting Request') }}
                     </x-nav-link>
                 </div>
 
