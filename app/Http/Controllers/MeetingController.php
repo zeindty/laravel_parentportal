@@ -19,7 +19,7 @@ class MeetingController extends Controller
         })->paginate(10);
         
 
-        return view('meetings.index', compact('meetings'));
+        return view('meetings.index', compact('meetings', 'users'))->with('i', (request()->input('page', 1) - 1) * 10);
     }
 
 
@@ -50,7 +50,6 @@ class MeetingController extends Controller
         // $user = Auth::user();
         $users = User::where("role", 'orang_tua')->get();
         $guru = User::where("role", 'guru')->get();
-        // $drivers = Sopir::where('status', 'available')->get();
         return view('meetings.create', compact('users', 'guru'));
     }
 
@@ -67,23 +66,15 @@ class MeetingController extends Controller
 
         Meeting::create($validated);
 
-        // Meeting::create([
-        //     'user_id' => $user->name,
-        //     'nip' => $user->nip,
-        //     'tanggal_pinjam' => $request->tanggal_pinjam,
-        //     'selesai_pinjam' => $request->selesai_pinjam,
-        //     'car_id' => $request->car_id,
-        //     'sopir_id' => $request->sopir_id,
-        //     'kegiatan' => $request->kegiatan,
-        //     'catatan' => $request->catatan,
-        // ]);
-
         return redirect()->route('meetings.index')->with('success', 'Meeting created successfully.');
     }
 
     public function edit(Meeting $meeting)
     {
-        return view('meetings.edit', compact('meeting'));
+        $users = User::where("role", 'orang_tua')->get();
+        $guru = User::where("role", 'guru')->get();
+
+        return view('meetings.edit', compact('meeting', 'users', 'guru'));
     }
 
     public function update(Request $request, Meeting $meeting)

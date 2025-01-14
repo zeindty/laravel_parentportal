@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Children;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -13,12 +14,14 @@ class ChildController extends Controller
      */
     public function index()
     {
-        $childs = Children::when(request()->search, function($childs) {
+        $users = User::where("role", 'orang_tua')->get(); 
+        // Mengambil semua laporan dan menampilkannya
+        $childs = Children::when(request()->search, function ($childs) {
             $childs = $childs->where('name', 'like', '%' . request()->search . '%');
         })->paginate(10);
 
-        return view('childs.index', compact('childs'))
-        ->with('i', (request()->input('page',1) - 1) * 10);
+        return view('childs.index', compact('childs', 'users'))
+            ->with('i', (request()->input('page', 1) - 1) * 10);
     }
 
     /**
@@ -26,29 +29,32 @@ class ChildController extends Controller
      */
     public function create()
     {
-        return view('childs.create');
+        $users = User::where("role", 'orang_tua')->get();
+        return view('childs.create', compact('users'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-{
-    $request->validate([
-        'name' => 'required|string|max:255',
-        'gender' => 'required|string',
-        'age' => 'required|integer',
-        'birth' => 'required|date',
-        'parent' => 'required|string|max:255',
-        'address' => 'required|string|max:500',
-    ]);
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'NISN' => 'required|string|max:8',
+            'class' => 'required|string',
+            'gender' => 'required|string',
+            'birth' => 'required|date',
+            'parent' => 'required|string|max:255',
+            'address' => 'required|string|max:500',
+        ]);
 
-    // Simpan data ke database
-    Children::create($request->all());
+        // Simpan data ke database
+        Children::create($request->all());
 
-    return redirect()->route('childs.index')
-        ->with('success', 'Child has been added successfully!');
-}
+
+        return redirect()->route('childs.index')
+            ->with('success', 'Child has been added successfully!');
+    }
 
 
     /**
@@ -64,7 +70,8 @@ class ChildController extends Controller
      */
     public function edit(Children $child)
     {
-        return view('childs.edit', compact('child'));
+        $users = User::where("role", 'orang_tua')->get();
+        return view('childs.edit', compact('child', 'users'));
     }
 
     /**
@@ -74,8 +81,9 @@ class ChildController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
+            'NISN' => 'required|string|max:8',
+            'class' => 'required|string',
             'gender' => 'required|string',
-            'age' => 'required|integer',
             'birth' => 'required|date',
             'parent' => 'required|string|max:255',
             'address' => 'required|string|max:500',
@@ -83,10 +91,10 @@ class ChildController extends Controller
 
         try {
             $child = Children::find($id);
-            // dd($child->first());
             $child->name = $request->name;
+            $child->NISN = $request->NISN;
+            $child->class = $request->class;
             $child->gender = $request->gender;
-            $child->age = $request->age;
             $child->birth = $request->birth;
             $child->parent = $request->parent;
             $child->address = $request->address;
@@ -94,8 +102,7 @@ class ChildController extends Controller
             // dd($child);
             $child->save();
             return redirect()->route('childs.index')
-            ->with('success', 'Child '.$child->name.' has been updated successfully!');
-
+                ->with('success', 'Child ' . $child->name . ' has been updated successfully!');
         } catch (\Throwable $th) {
             return back()->with('error', $th->getMessage());
         }
@@ -109,9 +116,9 @@ class ChildController extends Controller
         if ($child) {
             $child->delete();
             return redirect()->route('childs.index')
-            ->with('success', 'Child '.$child->name.' has been deleted successfully!');
+                ->with('success', 'Child ' . $child->name . ' has been deleted successfully!');
         } else {
             return back()->with('error', 'Child data not found!');
-        } 
+        }
     }
 }

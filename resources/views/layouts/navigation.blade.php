@@ -11,34 +11,34 @@
                 </div>
 
                 <!-- Navigation Links -->
+
+                <!-- Dashboard -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
                 </div>
-
+                <!-- User Index -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
                         {{ __('User Index') }}
                     </x-nav-link>
                 </div>
+                <!-- Child Index -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('childs.index')" :active="request()->routeIs('childs.index')">
                         {{ __('Child Data') }}
                     </x-nav-link>
                 </div>
-                <!-- Menambahkan Report Management di Primary Navigation Menu -->
+                <!-- Report Index -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('reports.index')" :active="request()->routeIs('reports.index')">
                         {{ __('Report Management') }}
                     </x-nav-link>
                 </div>
-
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('events.index')" :active="request()->routeIs('events.index')">
-                        {{ __('Event Management') }}
-                    </x-nav-link>
-                </div>
+                <!-- Event Index -->
+                
+                <!-- Meeting Index -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('meetings.index')" :active="request()->routeIs('meetings.index')">
                         {{ __('Meeting Request') }}
@@ -51,25 +51,32 @@
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">
-               <!-- Notification Icon -->
-<button class="relative text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none focus:text-gray-700 dark:focus:text-gray-300 me-4">
-    <!-- Bell Icon -->
-    <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14V11a6 6 0 10-12 0v3a2.032 2.032 0 01-.595 1.595L4 17h5m0 0a3 3 0 006 0m-6 0v1a3 3 0 006 0v-1" />
-    </svg>
-    <!-- Smaller Notification Dot -->
-    <span class="absolute top-0 right-0 inline-flex items-center justify-center px-1 py-0.5 text-xs font-bold leading-none text-white bg-red-600 rounded-full">
-        3
-    </span>
-</button>
+                <!-- Notification Icon -->
+                <button
+                    class="relative text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none focus:text-gray-700 dark:focus:text-gray-300 me-4">
+                    <!-- Bell Icon -->
+                    <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14V11a6 6 0 10-12 0v3a2.032 2.032 0 01-.595 1.595L4 17h5m0 0a3 3 0 006 0m-6 0v1a3 3 0 006 0v-1" />
+                    </svg>
+                    <!-- Smaller Notification Dot -->
+                    <span
+                        class="absolute top-0 right-0 inline-flex items-center justify-center px-1 py-0.5 text-xs font-bold leading-none text-white bg-red-600 rounded-full">
+                        3
+                    </span>
+                </button>
 
                 <x-dropdown align="right" width="48">
 
                     <x-slot name="trigger">
                         <button
                             class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
-                            <svg class="h-5 w-5 text-gray-500 dark:text-gray-400 me-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A9 9 0 1118.879 6.196a9 9 0 01-13.758 11.608zm2.829-2.829a5 5 0 107.071-7.071 5 5 0 00-7.071 7.071z" />
+                            <svg class="h-5 w-5 text-gray-500 dark:text-gray-400 me-1"
+                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5.121 17.804A9 9 0 1118.879 6.196a9 9 0 01-13.758 11.608zm2.829-2.829a5 5 0 107.071-7.071 5 5 0 00-7.071 7.071z" />
                             </svg>
                             <div>{{ Auth::user()->name }}</div>
 

@@ -39,6 +39,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('reports', ReportController::class);
     Route::resource('events', EventController::class);
     Route::resource('childs', ChildController::class);
+    Route::put('/childs/{child}', [ChildController::class, 'update'])->name('childs.update');
+    Route::delete('/childs/{child}', [ChildController::class, 'destroy'])->name('childs.destroy');
+
     Route::resource('meetings', MeetingController::class);
 
     Route::get('/export/pdf', [MeetingController::class, 'cetakPdf'])->name('cetak.pdf');

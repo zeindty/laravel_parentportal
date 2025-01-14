@@ -12,9 +12,9 @@
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-sm">
                     <div class="mx-auto py-4 px-4 sm:px-6 lg:px-8 text-gray-900 dark:text-gray-100">
 
-                        <!-- Child Name -->
+                        <!-- Parent Name -->
                         <div class="mt-2">
-                            <x-input-label for="user_id" :value="__('User')" />
+                            <x-input-label for="user_id" :value="__('Parent Name')" />
                             <select id="user_id" name="user_id" class="block dark:border-gray-700 mt-1 w-full dark:bg-gray-900 rounded-md">
                                 @foreach($users as $user)
                                     <option value="{{ $user->name }}" {{ old('user_id') == $user->name ? 'selected' : '' }}>{{ $user->name }}</option>
@@ -22,9 +22,10 @@
                             </select>
                             <x-input-error :messages="$errors->get('user_id')" class="mt-2" />
                         </div>
-
+                        
+                        <!-- Teacher Name -->
                         <div class="mt-2">
-                            <x-input-label for="teacher_id" :value="__('User')" />
+                            <x-input-label for="teacher_id" :value="__('Teacher Name')" />
                             <select id="teacher_id" name="teacher_id" class="block dark:border-gray-700 mt-1 w-full dark:bg-gray-900 rounded-md">
                                 @foreach($guru as $guru)
                                     <option value="{{ $guru->name }}" {{ old('teacher_id') == $guru->name ? 'selected' : '' }}>{{ $guru->name }}</option>
@@ -41,7 +42,7 @@
                             <x-input-error :messages="$errors->get('meeting_date')" class="mt-2" />
                         </div>
 
-                        <!-- Meeting Date -->
+                        <!-- Meeting Time -->
                         <div class="mt-4">
                             <x-input-label for="meeting_time" :value="__('Meeting Time')" />
                             <x-text-input id="meeting_time" class="block mt-1 w-full" type="time" name="meeting_time"
@@ -52,10 +53,16 @@
                         <!-- Status -->
                         <div class="mt-4">
                             <x-input-label for="status" :value="__('Status')" />
-                            <x-text-input id="status" class="block mt-1 w-full" type="text" name="status"
-                                :value="old('status')" required />
+                            <select id="status" name="status"
+                                class="block dark:border-gray-700 mt-1 w-full dark:bg-gray-900 rounded-md" required>
+                                <option value="pending" {{ old('status') == 'pending' ? 'selected' : '' }}>Pendind</option>
+                                <option value="scheduled" {{ old('status') == 'scheduled' ? 'selected' : '' }}>Scheduled</option>
+                                <option value="cancelled" {{ old('status') == 'cancelled' ? 'selected' : '' }}>Cancelled</option>
+                                <option value="completed" {{ old('status') == 'completed' ? 'selected' : '' }}>Completed</option>
+                            </select>
                             <x-input-error :messages="$errors->get('status')" class="mt-2" />
                         </div>
+                        
 
                         
 

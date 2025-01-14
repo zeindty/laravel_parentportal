@@ -11,30 +11,51 @@
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-sm">
                     <div class="mx-auto py-4 px-4 sm:px-6 lg:px-8 text-gray-900 dark:text-gray-100">
-                        
-                        <!-- Child Name -->
+
+                        <!-- Child Name (Dropdown) -->
                         <div>
                             <x-input-label for="child_name" :value="__('Child Name')" />
-                            <x-text-input id="child_name" class="block mt-1 w-full" type="text" name="child_name"
-                                :value="old('child_name')" required autofocus autocomplete="child_name" />
+                            <select id="child_name"
+                                class="block dark:border-gray-700 mt-1 w-full dark:bg-gray-900 rounded-md"
+                                name="child_name" required>
+                                <option value="" disabled selected>{{ __('Select a Child') }}</option>
+                                @foreach ($children as $child)
+                                    <option value="{{ $child->name }}"
+                                        {{ old('child_name', $child->name) == $child->name ? 'selected' : '' }}>
+                                        {{ $child->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+
                             <x-input-error :messages="$errors->get('child_name')" class="mt-2" />
                         </div>
 
-                        <!-- Class -->
-                        <div class="mt-4">
-                            <x-input-label for="class" :value="__('Class')" />
-                            <x-text-input id="class" class="block mt-1 w-full" type="text" name="class"
-                                :value="old('class')" required autocomplete="class" />
-                            <x-input-error :messages="$errors->get('class')" class="mt-2" />
+                        <!-- Teacher Name -->
+                        <div class="mt-2">
+                            <x-input-label for="teacher_name" :value="__('Teacher Name')" />
+                            <select id="teacher_name" name="teacher_name"
+                                class="block dark:border-gray-700 mt-1 w-full dark:bg-gray-900 rounded-md">
+                                @foreach ($guru as $guru)
+                                    <option value="{{ $guru->name }}"
+                                        {{ old('teacher_name') == $guru->name ? 'selected' : '' }}>{{ $guru->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            <x-input-error :messages="$errors->get('teacher_name')" class="mt-2" />
                         </div>
 
                         <!-- Status -->
                         <div class="mt-4">
                             <x-input-label for="status" :value="__('Status')" />
-                            <x-text-input id="status" class="block mt-1 w-full" type="text" name="status"
-                                :value="old('status')" required />
+                            <select id="status" name="status"
+                                class="block dark:border-gray-700 mt-1 w-full dark:bg-gray-900 rounded-md" required>
+                                <option value="draft" {{ old('status') == 'draft' ? 'selected' : '' }}>Draft</option>
+                                <option value="approve" {{ old('status') == 'approve' ? 'selected' : '' }}>Approve
+                                </option>
+                            </select>
                             <x-input-error :messages="$errors->get('status')" class="mt-2" />
                         </div>
+
 
                         <!-- Report Date -->
                         <div class="mt-4">
@@ -44,25 +65,51 @@
                             <x-input-error :messages="$errors->get('report_date')" class="mt-2" />
                         </div>
 
-                        <!-- Category -->
-                        <div class="mt-4">
-                            <x-input-label for="category" :value="__('Category')" />
-                            <x-text-input id="category" class="block mt-1 w-full" type="text" name="category"
-                                :value="old('category')" required autocomplete="category" />
-                            <x-input-error :messages="$errors->get('category')" class="mt-2" />
-                        </div>
-
                         <!-- Description -->
                         <div class="mt-4">
                             <x-input-label for="description" :value="__('Description')" />
-                            <textarea id="description" class="block mt-1 w-full border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50" name="description" required>{{ old('description') }}</textarea>
+                            <textarea id="description"
+                                class="block mt-1 w-full border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+                                name="description" required>{{ old('description') }}</textarea>
                             <x-input-error :messages="$errors->get('description')" class="mt-2" />
                         </div>
+
+                        <!-- Scores -->
+                        <div class="mt-4">
+                            <x-input-label for="scores" :value="__('Scores')" />
+                            <x-text-input id="scores" class="block mt-1 w-full" type="number" name="scores"
+                                :value="old('scores')" step="0.1" min="0" />
+                            <x-input-error :messages="$errors->get('scores')" class="mt-2" />
+                        </div>
+
+                        <!-- Club -->
+                        <!-- Club -->
+                        <div class="mt-4">
+                            <x-input-label for="club" :value="__('Club')" />
+                            <select id="club" name="club"
+                                class="block dark:border-gray-700 mt-1 w-full dark:bg-gray-900 rounded-md">
+                                <option value="" disabled selected>{{ __('Select a Club') }}</option>
+                                <option value="Art Club" {{ old('club') == 'Art Club' ? 'selected' : '' }}>Art Club
+                                </option>
+                                <option value="Music Club" {{ old('club') == 'Music Club' ? 'selected' : '' }}>Music
+                                    Club</option>
+                                <option value="Sports Club" {{ old('club') == 'Sports Club' ? 'selected' : '' }}>Sports
+                                    Club</option>
+                                <option value="Science Club" {{ old('club') == 'Science Club' ? 'selected' : '' }}>
+                                    Science Club</option>
+                                <option value="Drama Club" {{ old('club') == 'Drama Club' ? 'selected' : '' }}>Drama
+                                    Club</option>
+                            </select>
+                            <x-input-error :messages="$errors->get('club')" class="mt-2" />
+                        </div>
+
 
                         <!-- Teacher Notes -->
                         <div class="mt-4">
                             <x-input-label for="teacher_notes" :value="__('Teacher Notes')" />
-                            <textarea id="teacher_notes" class="block mt-1 w-full border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50" name="teacher_notes">{{ old('teacher_notes') }}</textarea>
+                            <textarea id="teacher_notes"
+                                class="block mt-1 w-full border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+                                name="teacher_notes">{{ old('teacher_notes') }}</textarea>
                             <x-input-error :messages="$errors->get('teacher_notes')" class="mt-2" />
                         </div>
 

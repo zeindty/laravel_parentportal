@@ -1,10 +1,11 @@
 <x-app-layout>
-    <form method="POST" action="{{ route('reports.update', $report->id) }}">
+    <form method="POST" action="{{ route('meetings.update', $meeting->id) }}">
         @csrf
-        @method('PUT')
+        @method('PUT') <!-- Tambahkan method PUT untuk form edit -->
+        
         <x-slot name="header">
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                {{ __('Edit Report') }}
+                {{ __('Edit Meeting') }}
             </h2>
         </x-slot>
 
@@ -12,68 +13,65 @@
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-sm">
                     <div class="mx-auto py-4 px-4 sm:px-6 lg:px-8 text-gray-900 dark:text-gray-100">
+
+                        <!-- Parent Name -->
+                        <div class="mt-2">
+                            <x-input-label for="user_id" :value="__('Parent Name')" />
+                            <select id="user_id" name="user_id" class="block dark:border-gray-700 mt-1 w-full dark:bg-gray-900 rounded-md">
+                                @foreach($users as $user)
+                                    <option value="{{ $user->name }}" {{ old('user_id', $meeting->user_id) == $user->name ? 'selected' : '' }}>{{ $user->name }}</option>
+                                @endforeach
+                            </select>
+                            <x-input-error :messages="$errors->get('user_id')" class="mt-2" />
+                        </div>
                         
-                        <!-- Child Name -->
-                        <div>
-                            <x-input-label for="child_name" :value="__('Child Name')" />
-                            <x-text-input id="child_name" class="block mt-1 w-full" type="text" name="child_name"
-                                :value="old('child_name', $report->child_name ?? '')" required autofocus autocomplete="child_name" />
-                            <x-input-error :messages="$errors->get('child_name')" class="mt-2" />
+                        <!-- Teacher Name -->
+                        <div class="mt-2">
+                            <x-input-label for="teacher_id" :value="__('Teacher Name')" />
+                            <select id="teacher_id" name="teacher_id" class="block dark:border-gray-700 mt-1 w-full dark:bg-gray-900 rounded-md">
+                                @foreach($guru as $teacher)
+                                    <option value="{{ $teacher->name }}" {{ old('teacher_id', $meeting->teacher_id) == $teacher->name ? 'selected' : '' }}>{{ $teacher->name }}</option>
+                                @endforeach
+                            </select>
+                            <x-input-error :messages="$errors->get('teacher_id')" class="mt-2" />
                         </div>
 
-                        <!-- Class -->
+                        <!-- Meeting Date -->
                         <div class="mt-4">
-                            <x-input-label for="class" :value="__('Class')" />
-                            <x-text-input id="class" class="block mt-1 w-full" type="text" name="class"
-                                :value="old('class', $report->class ?? '')" required autocomplete="class" />
-                            <x-input-error :messages="$errors->get('class')" class="mt-2" />
+                            <x-input-label for="meeting_date" :value="__('Meeting Date')" />
+                            <x-text-input id="meeting_date" class="block mt-1 w-full" type="date" name="meeting_date"
+                                :value="old('meeting_date', $meeting->meeting_date)" required />
+                            <x-input-error :messages="$errors->get('meeting_date')" class="mt-2" />
+                        </div>
+
+                        <!-- Meeting Time -->
+                        <div class="mt-4">
+                            <x-input-label for="meeting_time" :value="__('Meeting Time')" />
+                            <x-text-input id="meeting_time" class="block mt-1 w-full" type="time" name="meeting_time"
+                                :value="old('meeting_time', $meeting->meeting_time)" required />
+                            <x-input-error :messages="$errors->get('meeting_time')" class="mt-2" />
                         </div>
 
                         <!-- Status -->
                         <div class="mt-4">
                             <x-input-label for="status" :value="__('Status')" />
-                            <x-text-input id="status" class="block mt-1 w-full" type="text" name="status"
-                                :value="old('status', $report->status ?? '')" required />
+                            <select id="status" name="status"
+                                class="block dark:border-gray-700 mt-1 w-full dark:bg-gray-900 rounded-md" required>
+                                <option value="pending" {{ old('status') == 'pending' ? 'selected' : '' }}>Pending</option>
+                                <option value="scheduled" {{ old('status') == 'scheduled' ? 'selected' : '' }}>Scheduled</option>
+                                <option value="cancelled" {{ old('status') == 'cancelled' ? 'selected' : '' }}>Cancelled</option>
+                                <option value="completed" {{ old('status') == 'completed' ? 'selected' : '' }}>Completed</option>
+                            </select>
                             <x-input-error :messages="$errors->get('status')" class="mt-2" />
-                        </div>
-
-                        <!-- Report Date -->
-                        <div class="mt-4">
-                            <x-input-label for="report_date" :value="__('Report Date')" />
-                            <x-text-input id="report_date" class="block mt-1 w-full" type="date" name="report_date"
-                                :value="old('report_date', isset($report->report_date) ? \Carbon\Carbon::parse($report->report_date)->format('Y-m-d') : '')" />
-                            <x-input-error :messages="$errors->get('report_date')" class="mt-2" />
                         </div>
                         
 
-                        <!-- Category -->
-                        <div class="mt-4">
-                            <x-input-label for="category" :value="__('Category')" />
-                            <x-text-input id="category" class="block mt-1 w-full" type="text" name="category"
-                                :value="old('category', $report->category ?? '')" required autocomplete="category" />
-                            <x-input-error :messages="$errors->get('category')" class="mt-2" />
-                        </div>
-
-                        <!-- Description -->
-                        <div class="mt-4">
-                            <x-input-label for="description" :value="__('Description')" />
-                            <textarea id="description" class="block mt-1 w-full border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50" name="description">{{ old('description', $report->description ?? '') }}</textarea>
-                            <x-input-error :messages="$errors->get('description')" class="mt-2" />
-                        </div>
-
-                        <!-- Teacher Notes -->
-                        <div class="mt-4">
-                            <x-input-label for="teacher_notes" :value="__('Teacher Notes')" />
-                            <textarea id="teacher_notes" class="block mt-1 w-full border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50" name="teacher_notes">{{ old('teacher_notes', $report->teacher_notes ?? '') }}</textarea>
-                            <x-input-error :messages="$errors->get('teacher_notes')" class="mt-2" />
-                        </div>
-
                         <div class="flex items-center justify-end mt-4">
-                            <x-link-button class="ms-4" href="{{ route('reports.index') }}">
+                            <x-link-button class="ms-4" href="{{ route('meetings.index') }}">
                                 {{ __('Back') }}
                             </x-link-button>
                             <x-primary-button class="ms-4">
-                                {{ __('Save Report') }}
+                                {{ __('Update Meeting') }}
                             </x-primary-button>
                         </div>
                     </div>

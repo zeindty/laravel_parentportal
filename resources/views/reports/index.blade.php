@@ -36,19 +36,24 @@
                                         <span>Child Name</span>
                                     </th>
                                     <th scope="col" class="px-6 py-3 text-center">
-                                        <span>Class</span>
+                                        <span>Teacher Name</span> <!-- Kolom baru -->
                                     </th>
+                                    
                                     <th scope="col" class="px-6 py-3 text-center">
                                         <span>Status</span>
                                     </th>
                                     <th scope="col" class="px-6 py-3 text-center">
                                         <span>Report Date</span>
                                     </th>
-                                    <th scope="col" class="px-6 py-3 text-center">
-                                        <span>Category</span>
-                                    </th>
+                                    
                                     <th scope="col" class="px-6 py-3 text-center">
                                         <span>Description</span>
+                                    </th>
+                                    <th scope="col" class="px-6 py-3 text-center">
+                                        <span>Scores</span> <!-- Kolom baru -->
+                                    </th>
+                                    <th scope="col" class="px-6 py-3 text-center">
+                                        <span>Club</span> <!-- Kolom baru -->
                                     </th>
                                     <th scope="col" class="px-6 py-3 text-center">
                                         <span>Teacher Notes</span>
@@ -71,13 +76,14 @@
                                             {{ $i++ }}
                                         </td>
                                         <td class="px-6 py-2 text-center">{{ $report->child_name }}</td>
-                                        <td class="px-6 py-2 text-center">{{ $report->class }}</td>
+                                        <td class="px-6 py-2 text-center">{{ $report->teacher_name }}</td> <!-- Kolom baru -->
                                         <td class="px-6 py-2 text-center">{{ $report->status }}</td>
                                         <td class="px-6 py-2 text-center">{{ $report->report_date->format('d-m-Y') }}
                                         </td>
-                                        <td class="px-6 py-2 text-center">{{ $report->category }}</td>
                                         <td class="px-6 py-2 text-center">{{ Str::limit($report->description, 30) }}
                                         </td>
+                                        <td class="px-6 py-2 text-center">{{ $report->scores }}</td> <!-- Kolom baru -->
+                                        <td class="px-6 py-2 text-center">{{ $report->club }}</td> <!-- Kolom baru -->
                                         <td class="px-6 py-2 text-center">{{ Str::limit($report->teacher_notes, 30) }}
                                         </td>
                                         <td class="px-6 py-2 text-center">
@@ -97,7 +103,6 @@
                                                 </div>
                                             </form>
                                         </td>
-                                        
                                     </tr>
                                 @endforeach
                             </tbody>

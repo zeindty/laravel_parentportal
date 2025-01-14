@@ -28,7 +28,8 @@
 
                         <div class="mt-4">
                             <x-input-label for="role" :value="__('Role')" />
-                            <select id="role" class="block mt-1 w-full" name="role" required>
+                            <select id="role" class="block mt-1 w-full border-gray-300 focus:border-gray-800 focus:ring-indigo-500 rounded-md shadow-sm dark:bg-gray-900 dark:text-gray-200 dark:border-gray-600"
+                                name="role" required>
                                 <option value="super_admin" {{ old('role') == 'super_admin' ? 'selected' : '' }}>Super Admin</option>
                                 <option value="kepala_sekolah" {{ old('role') == 'kepala_sekolah' ? 'selected' : '' }}>Kepala Sekolah</option>
                                 <option value="guru" {{ old('role') == 'guru' ? 'selected' : '' }}>Guru</option>
@@ -36,6 +37,7 @@
                             </select>
                             <x-input-error :messages="$errors->get('role')" class="mt-2" />
                         </div>
+                        
                         
 
                         <!-- Password -->

@@ -34,15 +34,21 @@
                                         <span>Name</span>
                                     </th>
                                     <th scope="col" class="px-6 py-3 text-center">
+                                        <span>NISN</span>
+                                    </th>
+                                    <th scope="col" class="px-6 py-3 text-center">
+                                        <span>Class</span>
+                                    </th>
+                                    <th scope="col" class="px-6 py-3 text-center">
                                         <span>Gender</span>
                                     </th>
                                     <th scope="col" class="px-6 py-3 text-center">
-                                        <span>Age</span>
-                                    </th><th scope="col" class="px-6 py-3 text-center">
                                         <span>Birth</span>
-                                    </th><th scope="col" class="px-6 py-3 text-center">
+                                    </th>
+                                    <th scope="col" class="px-6 py-3 text-center">
                                         <span>Parent</span>
-                                    </th><th scope="col" class="px-6 py-3 text-center">
+                                    </th>
+                                    <th scope="col" class="px-6 py-3 text-center">
                                         <span>Address</span>
                                     </th>
                                     <th scope="col" class="px-6 py-3 text-center">
@@ -62,10 +68,13 @@
                                             {{ $child->name }}
                                         </td>
                                         <td class="px-6 py-2 text-center">
-                                            {{ $child->gender }}
+                                            {{ $child->NISN }}
                                         </td>
                                         <td class="px-6 py-2 text-center">
-                                            {{ $child->age }}
+                                            {{ $child->class }}
+                                        </td>
+                                        <td class="px-6 py-2 text-center">
+                                            {{ $child->gender }}
                                         </td>
                                         <td class="px-6 py-2 text-center">
                                             {{ $child->birth }}

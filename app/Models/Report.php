@@ -10,11 +10,23 @@ class Report extends Model
     use HasFactory;
 
     protected $fillable = [
-        'child_name', 'class', 'status', 'report_date', 'category', 'description', 'teacher_notes',
+        'child_name',
+        'teacher_name', // Kolom baru
+        'status',
+        'report_date',
+        'description',
+        'scores', // Kolom baru
+        'club', // Kolom baru
+        'teacher_notes',
     ];
 
-    // Relasi dengan User (guru)
-    public function user()
+    // Relasi dengan child (nama anak)
+    public function child()
+{
+    return $this->belongsTo(Children::class);
+}
+
+public function user()
     {
         return $this->belongsTo(User::class);
     }

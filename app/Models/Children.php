@@ -11,10 +11,15 @@ class Children extends Model
 
     protected $fillable = [
         'name',
+        'NISN',
+        'class',
         'gender',
-        'age',
         'birth',
         'parent',
         'address',
     ];
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

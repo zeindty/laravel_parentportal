@@ -11,24 +11,29 @@ return new class extends Migration
      */
     public function up()
 {
+    // Menghapus tabel lama
+    Schema::dropIfExists('reports');
+
+    // Membuat tabel dengan urutan kolom baru
     Schema::create('reports', function (Blueprint $table) {
         $table->id();
         $table->string('child_name');
+        $table->string('teacher_name'); // Kolom baru
         $table->string('class');
         $table->string('status');
         $table->date('report_date');
         $table->string('category');
         $table->text('description');
-        $table->text('teacher_notes');
+        $table->integer('scores')->nullable(); // Kolom baru
+        $table->string('club')->nullable(); // Kolom baru
+        $table->text('teacher_notes')->nullable();
         $table->timestamps();
     });
 }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::dropIfExists('reports');
-    }
+public function down()
+{
+    Schema::dropIfExists('reports');
+}
+
 };
